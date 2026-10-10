@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Beaded Bags - Bon-Ace</title>
+    <title>Shoes - Bon-Ace</title>
     <style>
         :root {
             color-scheme: light;
@@ -35,7 +35,6 @@
         }
         .site-header.is-scrolled { box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08); }
         .nav-top { display: flex; justify-content: center; align-items: center; padding: 0.9rem 1rem 0.7rem; overflow: hidden; max-height: 120px; transition: max-height 320ms ease, padding 320ms ease; }
-        .site-header.is-scrolled .nav-top { max-height: 0; padding-top: 0; padding-bottom: 0; }
         .nav__brand { display: inline-flex; align-items: center; justify-content: center; padding: 0.5rem; background: rgba(0, 0, 0, 0.92); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12); flex-shrink: 0; }
         .nav__brand img { width: 64px; height: auto; display: block; }
         .nav-bar { width: var(--container); max-width: 1320px; margin: 0 auto; display: flex; justify-content: center; align-items: center; gap: 1.1rem; padding: 0.7rem clamp(1rem, 2vw, 2.5rem); border-top: 1px solid var(--border); }
@@ -90,21 +89,15 @@
             </div>
         </nav>
     </header>
+    @include('old_design.partials.customer-category-menu', ['activeCategory' => 'shoes'])
     <main>
         <section class="hero">
-            <h1>Beaded Bags</h1>
-            <p>Discover our exclusive collection of beaded bags at Bon-Ace.</p>
+            <h1>Shoes</h1>
+            <p>Discover our exclusive collection of shoes at Bon-Ace.</p>
         </section>
-        <section class="product-grid">
-            <a class="product-card" href="{{ route('components') }}"><img src="{{ asset('images/fashion-accessories/components.jpg') }}" alt="Components"><div class="product-card__overlay"><h3>Components</h3></div></a>
-            <a class="product-card" href="{{ route('necklaces') }}"><img src="{{ asset('images/fashion-accessories/necklaces.jpg') }}" alt="Necklaces"><div class="product-card__overlay"><h3>Necklaces</h3></div></a>
-            <a class="product-card" href="{{ route('clutches') }}"><img src="{{ asset('images/fashion-accessories/clutches.jpg') }}" alt="Clutches"><div class="product-card__overlay"><h3>Clutches</h3></div></a>
-            <a class="product-card" href="{{ route('bangles') }}"><img src="{{ asset('images/fashion-accessories/bangles.jpg') }}" alt="Bangles"><div class="product-card__overlay"><h3>Bangles</h3></div></a>
-            <a class="product-card" href="{{ route('earrings') }}"><img src="{{ asset('images/fashion-accessories/earrings.jpg') }}" alt="Earrings"><div class="product-card__overlay"><h3>Earrings</h3></div></a>
-            <a class="product-card" href="{{ route('shoes') }}"><img src="{{ asset('images/fashion-accessories/shoes.jpg') }}" alt="Shoes"><div class="product-card__overlay"><h3>Shoes</h3></div></a>
-            <a class="product-card" href="{{ route('beaded-bags') }}"><img src="{{ asset('images/fashion-accessories/beaded-bags.jpg') }}" alt="Beaded Bags"><div class="product-card__overlay"><h3>Beaded Bags</h3></div></a>
-        </section>
+        @include('old_design.partials.customer-product-grid')
     </main>
+    @include('old_design.partials.customer-footer')
     <script>
         (function () {
             const header = document.querySelector('.site-header');

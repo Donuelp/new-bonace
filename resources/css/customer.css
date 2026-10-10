@@ -1,0 +1,833 @@
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        @apply bg-stone-50 text-bonace-ink antialiased;
+    }
+}
+
+@layer components {
+    .landing-page {
+        display: grid;
+        min-height: 100vh;
+        place-items: center;
+        position: relative;
+        overflow: hidden;
+        background-color: #050505;
+        background-position: center, left center;
+        background-repeat: no-repeat;
+        background-size: cover, cover;
+    }
+
+    .landing-page__logo {
+        width: clamp(118px, 15vw, 205px);
+        height: auto;
+        padding: 0.75rem;
+        background: rgba(0, 0, 0, 0.9);
+        box-shadow: 0 18px 55px rgba(0, 0, 0, 0.52);
+    }
+
+    .landing-page__brand {
+        position: relative;
+        z-index: 2;
+        transform: translateY(7vh);
+    }
+
+    .landing-page__collage {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    .landing-page__tile {
+        position: absolute;
+        margin: 0;
+        overflow: hidden;
+        background: #111111;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.42);
+        pointer-events: auto;
+        cursor: pointer;
+        animation: landing-float 7s ease-in-out infinite;
+    }
+
+    .landing-page__tile::after {
+        content: "";
+        position: absolute;
+        z-index: 1;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.58);
+        opacity: 0;
+        transition: opacity 320ms ease;
+    }
+
+    .landing-page__tile img {
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+        display: block;
+        transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .landing-page__tile:hover img {
+        transform: scale(1.08);
+    }
+
+    .landing-page__tile-label {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        display: grid;
+        place-items: center;
+        padding: 1.25rem;
+        margin: 0;
+        color: #ffffff;
+        font-size: clamp(0.72rem, 1.2vw, 1rem);
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        line-height: 1.25;
+        opacity: 0;
+        text-align: center;
+        text-transform: uppercase;
+        transform: translateY(10px);
+        transition: opacity 320ms ease, transform 320ms ease;
+    }
+
+    .landing-page__tile:hover::after,
+    .landing-page__tile:hover .landing-page__tile-label {
+        opacity: 1;
+    }
+
+    .landing-page__tile:hover .landing-page__tile-label {
+        transform: translateY(0);
+    }
+
+    .landing-page__tile--decor {
+        top: 12%;
+        left: 18%;
+        width: clamp(150px, 22vw, 300px);
+        height: auto;
+        max-width: 100%;
+        animation-delay: -1.8s;
+    }
+
+    .landing-page__tile--fashion {
+        top: 2%;
+        right: 20%;
+        width: clamp(360px, 58vw, 760px);
+        height: auto;
+        max-width: 100%;
+        animation-delay: -4.2s;
+    }
+
+    .landing-page__tile--fashion img {
+        height: auto;
+        max-width: 100%;
+    }
+
+    .landing-page__tile--furniture {
+        bottom: -4%;
+        left: 26%;
+        width: clamp(280px, 42vw, 560px);
+        height: auto;
+        max-width: 100%;
+        animation-delay: -3.1s;
+    }
+
+    .landing-page__tile--furniture img {
+        height: auto;
+        max-width: 100%;
+    }
+
+    .landing-page__tile--lighting {
+        right: 22%;
+        bottom: 0;
+        width: clamp(160px, 22vw, 300px);
+        height: auto;
+        max-width: 100%;
+        animation-delay: -5.4s;
+    }
+
+    @keyframes landing-float {
+        0%, 100% { transform: translate3d(0, 0, 0); }
+        50% { transform: translate3d(0, -18px, 0); }
+    }
+
+    @media (max-width: 640px) {
+        .landing-page__brand { transform: translateY(4vh); }
+        .landing-page__tile--decor { top: 3%; left: -7%; width: 48vw; }
+        .landing-page__tile--fashion { top: 4%; right: -28%; width: 88vw; }
+        .landing-page__tile--furniture { bottom: -1%; left: -28%; width: 90vw; }
+        .landing-page__tile--lighting { right: -13%; bottom: 2%; width: 52vw; }
+        .landing-page__logo { width: 135px; }
+    }
+}
+
+.landing-page__brand {
+    display: inline-block;
+}
+
+.fashion-tools-page {
+    min-height: 100vh;
+    display: grid;
+    place-content: center;
+    gap: 1.5rem;
+    padding: 2rem;
+    color: #f5f1e8;
+    text-align: center;
+    background-color: #070707;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url('/images/customer/landing-pattern.png');
+    background-repeat: repeat;
+}
+
+.fashion-tools-page__brand img {
+    display: block;
+    width: min(210px, 55vw);
+    margin: 0 auto;
+}
+
+.fashion-tools-page p {
+    margin: 0;
+    font-size: clamp(0.8rem, 1.5vw, 1rem);
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+.fashion-tools-subnav {
+    position: relative;
+    z-index: 11;
+    display: flex;
+    align-items: center;
+    min-height: 42px;
+    padding: 0 5vw;
+    color: #f6f2e8;
+    background: #050505;
+    font-size: 0.58rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.fashion-tools-subnav__link {
+    color: inherit;
+    text-decoration: none;
+}
+
+.fashion-tools-subnav__title {
+    opacity: 0.7;
+}
+
+.fashion-tools-subnav__actions {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-left: auto;
+    margin-right: 10%;
+}
+
+.fashion-tools-subnav__actions a {
+    color: inherit;
+    padding: 0 0.72rem;
+    text-decoration: none;
+}
+
+.fashion-tools-subnav__actions > * {
+    min-height: 1.8rem;
+}
+
+.fashion-tools-subnav__actions > * + * {
+    border-left: 1px solid rgba(246, 242, 232, 0.28);
+}
+
+.fashion-tools-subnav__social {
+    display: inline-grid;
+    width: 2.25rem;
+    height: 1.8rem;
+    place-items: center;
+    padding: 0 !important;
+    color: #f6f2e8;
+    font-size: 0.95rem;
+    transition: color 180ms ease;
+}
+
+.fashion-tools-subnav__social:hover,
+.fashion-tools-subnav__contact:hover {
+    color: #caa446;
+}
+
+.fashion-tools-subnav__contact {
+    display: inline-flex;
+    align-items: center;
+    color: #f6f2e8;
+}
+
+.fashion-tools-subnav__title {
+    display: inline-flex;
+    align-items: center;
+    padding-left: 0.72rem;
+}
+
+.fashion-tools-mainnav {
+    position: relative;
+    z-index: 10;
+    padding: 0 5vw;
+    background: #ffffff;
+    border-bottom: 1px solid #e9e6e0;
+}
+
+.fashion-tools-mainnav__links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 76px;
+    gap: clamp(1rem, 2.4vw, 2.6rem);
+    padding-left: clamp(5.5rem, 9vw, 9.5rem);
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.fashion-tools-mainnav__links::-webkit-scrollbar {
+    display: none;
+}
+
+.fashion-tools-mainnav a {
+    flex: 0 0 auto;
+    color: #171717;
+    font-size: clamp(0.68rem, 0.9vw, 0.82rem);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 180ms ease;
+}
+
+.fashion-tools-mainnav a:hover {
+    color: #aa8128;
+}
+
+.fashion-tools-floating-logo {
+    position: absolute;
+    top: 24px;
+    left: var(--fashion-tools-logo-left, calc(clamp(1.25rem, 5vw, 5rem) + 4vw));
+    z-index: 20;
+    display: block;
+    width: clamp(100px, 9vw, 132px);
+    padding: 0.75rem;
+    background: rgba(0, 0, 0, 0.9);
+    box-shadow: 0 18px 55px rgba(0, 0, 0, 0.52);
+}
+
+.fashion-tools-floating-logo img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+@media (max-width: 640px) {
+    .fashion-tools-floating-logo {
+        top: 14px;
+        left: var(--fashion-tools-logo-left, calc(1rem + 4vw));
+        width: 76px;
+        padding: 0.45rem;
+    }
+
+    .fashion-tools-mainnav {
+        padding: 0 1.25rem;
+    }
+
+    .fashion-tools-mainnav__links {
+        justify-content: flex-start;
+        min-height: 62px;
+        padding-left: 5.5rem;
+    }
+}
+
+.fashion-tools-banner {
+    position: relative;
+    min-height: 90svh;
+    overflow: hidden;
+    background: #111111;
+}
+
+.fashion-tools-banner__slides,
+.fashion-tools-banner__slide,
+.fashion-tools-banner__slide img {
+    width: 100%;
+    height: 100%;
+}
+
+.fashion-tools-banner__slides {
+    position: absolute;
+    inset: 0;
+}
+
+.fashion-tools-banner__slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 900ms ease;
+}
+
+.fashion-tools-banner__slide::after {
+    position: absolute;
+    inset: 0;
+    content: '';
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.25), transparent 55%, rgba(0, 0, 0, 0.16));
+}
+
+.fashion-tools-banner__slide.is-active {
+    opacity: 1;
+}
+
+.fashion-tools-banner__slide img {
+    object-fit: cover;
+    object-position: center;
+}
+
+.fashion-tools-banner__control {
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+    display: grid;
+    width: 48px;
+    height: 48px;
+    place-items: center;
+    padding: 0;
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.48);
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 2rem;
+    font-weight: 300;
+    line-height: 1;
+    opacity: 0;
+    transform: translateY(-50%);
+    transition: background 180ms ease, opacity 180ms ease;
+}
+
+.fashion-tools-banner:hover .fashion-tools-banner__control,
+.fashion-tools-banner:focus-within .fashion-tools-banner__control {
+    opacity: 1;
+}
+
+.fashion-tools-banner__control:hover {
+    background: rgba(0, 0, 0, 0.65);
+}
+
+.fashion-tools-banner__control--previous {
+    left: 2rem;
+}
+
+.fashion-tools-banner__control--next {
+    right: 2rem;
+}
+
+.fashion-tools-banner__dots {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    z-index: 2;
+    display: flex;
+    gap: 0.55rem;
+    transform: translateX(-50%);
+}
+
+.fashion-tools-banner__dots button {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    background: rgba(255, 255, 255, 0.55);
+    border: 0;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 180ms ease, background 180ms ease;
+}
+
+.fashion-tools-banner__dots button.is-active {
+    background: #ffffff;
+    transform: scale(1.35);
+}
+
+.fashion-tools-categories {
+    padding: clamp(4.05rem, 8.1vw, 8.1rem) 5vw;
+    color: #1c1711;
+    background: #f4f0e8;
+}
+
+.fashion-tools-categories__heading {
+    max-width: 660px;
+    margin: 0 auto clamp(3.15rem, 5.4vw, 5.4rem);
+    text-align: center;
+}
+
+.fashion-tools-categories__heading p {
+    margin: 0 0 1rem;
+    color: #927231;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+}
+
+.fashion-tools-categories__heading h1 {
+    margin: 0;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(2rem, 4vw, 4.2rem);
+    font-weight: 400;
+    line-height: 1.05;
+}
+
+.fashion-tools-categories__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(1.25rem, 2.25vw, 3rem);
+    max-width: 1450px;
+    margin: 0 auto;
+}
+
+.fashion-tools-category-card {
+    position: relative;
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
+.fashion-tools-category-card:nth-child(2) {
+    margin-top: clamp(3rem, 7vw, 7rem);
+}
+
+.fashion-tools-category-card:nth-child(3) {
+    margin-top: 0;
+}
+
+.fashion-tools-category-card:nth-child(4) {
+    margin-top: clamp(3rem, 7vw, 7rem);
+}
+
+.fashion-tools-category-card:nth-child(1) {
+    margin-top: 0;
+}
+
+.fashion-tools-category-card__image {
+    display: block;
+    overflow: hidden;
+    background: #d9d1c4;
+}
+
+.fashion-tools-category-card:nth-child(1) .fashion-tools-category-card__image {
+    aspect-ratio: 0.75;
+}
+
+.fashion-tools-category-card:nth-child(2) .fashion-tools-category-card__image {
+    aspect-ratio: 0.82;
+}
+
+.fashion-tools-category-card:nth-child(3) .fashion-tools-category-card__image {
+    aspect-ratio: 0.74;
+}
+
+.fashion-tools-category-card:nth-child(4) .fashion-tools-category-card__image {
+    aspect-ratio: 0.86;
+}
+
+.fashion-tools-category-card__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 550ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.fashion-tools-category-card:hover .fashion-tools-category-card__image img {
+    transform: scale(1.06);
+}
+
+.fashion-tools-category-card__details {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1.1rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid rgba(28, 23, 17, 0.32);
+}
+
+.fashion-tools-category-card__title,
+.fashion-tools-category-card__meta {
+    display: block;
+    font-size: clamp(0.68rem, 0.85vw, 0.8rem);
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+}
+
+.fashion-tools-category-card__title {
+    min-width: 0;
+}
+
+.fashion-tools-category-card__meta {
+    color: #927231;
+}
+
+.fashion-tools-gallery {
+    position: relative;
+    padding: clamp(4.5rem, 8vw, 8rem) 0 clamp(3.5rem, 6vw, 6rem);
+    overflow: hidden;
+    color: #201a13;
+    background: #e7ddcf;
+}
+
+.fashion-tools-gallery__heading {
+    padding: 0 1.25rem;
+    text-align: center;
+}
+
+.fashion-tools-gallery__heading p,
+.fashion-tools-gallery__hint {
+    margin: 0;
+    color: #7a5a21;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+.fashion-tools-gallery__heading h2 {
+    display: flex;
+    flex-direction: column;
+    gap: 0.08em;
+    margin: 0.8rem 0 0;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(2.1rem, 4.1vw, 4.25rem);
+    font-weight: 400;
+    line-height: 1.05;
+}
+
+.fashion-tools-gallery__heading h2 span {
+    display: block;
+}
+
+.fashion-tools-gallery__heading .fashion-tools-gallery__subtext {
+    display: block;
+    max-width: 520px;
+    margin: 1.7rem auto 0;
+    color: rgba(32, 26, 19, 0.82);
+    font-size: clamp(0.85rem, 1.1vw, 1rem);
+    font-weight: 400;
+    letter-spacing: normal;
+    line-height: 1.7;
+    opacity: 0;
+    text-transform: none;
+    transform: translateY(10px);
+    transition: opacity 550ms ease, transform 550ms ease;
+}
+
+.fashion-tools-gallery__subtext.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.fashion-tools-gallery__heading h2 span.is-typing::after {
+    display: inline-block;
+    width: 0.07em;
+    height: 0.9em;
+    margin-left: 0.12em;
+    vertical-align: -0.06em;
+    content: '';
+    background: currentColor;
+    animation: fashion-tools-caret 720ms steps(1) infinite;
+}
+
+@keyframes fashion-tools-caret {
+    50% {
+        opacity: 0;
+    }
+}
+
+.fashion-tools-gallery__stage {
+    position: relative;
+    height: clamp(340px, 47vw, 620px);
+    margin-top: clamp(2.75rem, 5vw, 5rem);
+    cursor: grab;
+    perspective: 1200px;
+    perspective-origin: center;
+    touch-action: pan-y;
+    user-select: none;
+}
+
+.fashion-tools-gallery__stage.is-dragging {
+    cursor: grabbing;
+}
+
+.fashion-tools-gallery__card {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: clamp(190px, 28vw, 390px);
+    height: 100%;
+    overflow: hidden;
+    background: #d4c3ad;
+    box-shadow: 0 22px 45px rgba(47, 34, 18, 0.18);
+    transform: translateX(calc(-50% + var(--gallery-drag-offset, 0px)));
+    transform-origin: center center;
+    transition: transform 620ms cubic-bezier(0.2, 0.75, 0.2, 1), opacity 460ms ease;
+    will-change: transform, opacity;
+}
+
+.fashion-tools-gallery__stage.is-dragging .fashion-tools-gallery__card {
+    transition: none;
+}
+
+.fashion-tools-gallery__card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+.fashion-tools-gallery__hint {
+    margin-top: clamp(2.25rem, 4vw, 4rem);
+    text-align: center;
+}
+
+.fashion-tools-about {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    min-height: clamp(500px, 65vw, 780px);
+    background: #ffffff;
+}
+
+.fashion-tools-about__image {
+    overflow: hidden;
+}
+
+.fashion-tools-about__image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.fashion-tools-about__content {
+    display: grid;
+    min-height: 100%;
+    align-content: center;
+    padding: clamp(3rem, 8vw, 9rem);
+    color: #1c1711;
+}
+
+.fashion-tools-about__eyebrow {
+    margin: 0;
+    color: #927231;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+}
+
+.fashion-tools-about__divider {
+    width: 52px;
+    height: 1px;
+    margin: 1.25rem 0 2rem;
+    background: #1c1711;
+}
+
+.fashion-tools-about__copy {
+    max-width: 570px;
+    font-size: clamp(0.9rem, 1.2vw, 1.06rem);
+    line-height: 1.8;
+}
+
+.fashion-tools-about__copy p {
+    margin: 0;
+}
+
+.fashion-tools-about__copy p + p {
+    margin-top: 1.45rem;
+}
+
+@media (max-width: 640px) {
+    .fashion-tools-banner {
+        min-height: 90svh;
+    }
+
+    .fashion-tools-banner__control {
+        width: 40px;
+        height: 40px;
+        opacity: 1;
+    }
+
+    .fashion-tools-banner__control--previous {
+        left: 1rem;
+    }
+
+    .fashion-tools-banner__control--next {
+        right: 1rem;
+    }
+
+    .fashion-tools-categories {
+        padding: 4.05rem 1.25rem;
+    }
+
+    .fashion-tools-categories__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 2.25rem 1rem;
+    }
+
+    .fashion-tools-category-card:nth-child(2) {
+        margin-top: 2.5rem;
+    }
+
+    .fashion-tools-category-card:nth-child(3) {
+        margin-top: 0;
+    }
+
+    .fashion-tools-category-card:nth-child(4) {
+        margin-top: 2.5rem;
+    }
+
+    .fashion-tools-category-card:nth-child(1) {
+        margin-top: 0;
+    }
+
+    .fashion-tools-gallery {
+        padding-top: 4.05rem;
+    }
+
+    .fashion-tools-gallery__heading {
+        padding: 0 1.25rem;
+    }
+
+    .fashion-tools-gallery__stage {
+        height: min(94vw, 460px);
+    }
+
+    .fashion-tools-gallery__card {
+        width: min(68vw, 300px);
+    }
+
+    .fashion-tools-about {
+        grid-template-columns: 1fr;
+        min-height: 0;
+    }
+
+    .fashion-tools-about__image {
+        min-height: 82vw;
+    }
+
+    .fashion-tools-about__content {
+        display: block;
+        min-height: auto;
+        padding: 3.5rem 1.25rem 4.5rem;
+    }
+
+}

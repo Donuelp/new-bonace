@@ -71,11 +71,6 @@
             transition: max-height 320ms ease, padding 320ms ease;
         }
 
-        .site-header.is-scrolled .nav-top {
-            max-height: 0;
-            padding-top: 0;
-            padding-bottom: 0;
-        }
 
         .nav__brand {
             display: inline-flex;
@@ -933,6 +928,71 @@
             display: block;
         }
 
+        .parallax-showcase {
+            position: relative;
+            isolation: isolate;
+            display: flex;
+            align-items: flex-end;
+            width: var(--container);
+            min-height: clamp(420px, 58vw, 680px);
+            margin: 1.5rem auto 2rem;
+            overflow: hidden;
+            border-radius: var(--radius-lg);
+            background: #0d1012;
+            box-shadow: var(--shadow);
+            color: #ffffff;
+        }
+
+        .parallax-showcase__image {
+            position: absolute;
+            z-index: -2;
+            inset: -50% 0;
+            background: url("{{ asset('images/homepage/parallax.jpg') }}") center / cover no-repeat;
+            transform: translate3d(0, var(--parallax-offset, 0px), 0) scale(1.06);
+            will-change: transform;
+        }
+
+        .parallax-showcase::after {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            inset: 0;
+            background: linear-gradient(90deg, rgba(8, 11, 13, 0.74) 0%, rgba(8, 11, 13, 0.26) 58%, rgba(8, 11, 13, 0.08) 100%);
+        }
+
+        .parallax-showcase__content {
+            width: min(100% - clamp(2.5rem, 8vw, 8rem), 1180px);
+            margin: 0 auto;
+            padding: clamp(2rem, 6vw, 5rem) 0;
+        }
+
+        .parallax-showcase__eyebrow {
+            margin: 0 0 0.85rem;
+            color: #e1c78f;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        .parallax-showcase h2 {
+            max-width: 9ch;
+            margin: 0;
+            font-size: clamp(2.6rem, 6vw, 5.8rem);
+            font-weight: 500;
+            line-height: 0.92;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+        }
+
+        .parallax-showcase__content > p:last-child {
+            max-width: 29rem;
+            margin: 1.25rem 0 0;
+            color: rgba(255, 255, 255, 0.84);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
         .cta {
             width: var(--container);
             margin: 2rem auto 3rem;
@@ -1237,7 +1297,45 @@
                 grid-template-columns: 1fr;
             }
 
+            .parallax-showcase {
+                min-height: 440px;
+                margin: 1rem auto 1.5rem;
+            }
+
+            .parallax-showcase__image {
+                inset: -45% 0;
+                background-position: center;
+            }
+
+            .parallax-showcase::after {
+                background: linear-gradient(90deg, rgba(8, 11, 13, 0.8) 0%, rgba(8, 11, 13, 0.24) 100%);
+            }
+
         }
+
+        .scroll-reveal {
+            overflow: hidden;
+        }
+
+        .scroll-reveal > :not(.parallax-showcase__image) {
+            opacity: 0;
+            transform: translateY(100vh);
+            transition: opacity 120ms linear, transform 1500ms cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+
+        .scroll-reveal.is-visible > :not(.parallax-showcase__image) {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .scroll-reveal.is-visible > :nth-child(2) { transition-delay: 100ms; }
+        .scroll-reveal.is-visible > :nth-child(3) { transition-delay: 180ms; }
+        .scroll-reveal.is-visible > :nth-child(4) { transition-delay: 260ms; }
+
+        .parallax-showcase.scroll-reveal.is-visible > .parallax-showcase__content {
+            transition-delay: 0ms;
+        }
+
     </style>
 </head>
 <body>
@@ -1262,6 +1360,8 @@
             </div>
         </nav>
     </header>
+
+    @include('old_design.partials.customer-mobile-nav')
 
     <main>
         <section class="hero" id="banner">
@@ -1469,7 +1569,18 @@
             </div>
         </section>
 
+        <section class="parallax-showcase" aria-label="Bon-Ace crafted design showcase">
+            <div class="parallax-showcase__image" aria-hidden="true"></div>
+            <div class="parallax-showcase__content">
+                <p class="parallax-showcase__eyebrow">Bon-Ace Lifestyle</p>
+                <h2>Designed for remarkable spaces.</h2>
+                <p>Distinctive objects, thoughtful materials, and craftsmanship made to create a lasting sense of place.</p>
+            </div>
+        </section>
+
     </main>
+
+    @include('old_design.partials.customer-footer')
 
     <script>
         (function () {
@@ -1484,6 +1595,59 @@
                 }
             };
             window.addEventListener('scroll', onScroll, { passive: true });
+
+            const sections = document.querySelectorAll('main > section');
+            const revealSection = function (section) {
+                section.classList.add('is-visible');
+            };
+
+            if (!('IntersectionObserver' in window)) {
+                sections.forEach(revealSection);
+                return;
+            }
+
+            const observer = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (!entry.isIntersecting) return;
+
+                    revealSection(entry.target);
+                    observer.unobserve(entry.target);
+                });
+            }, { threshold: 0.08, rootMargin: '0px 0px -35% 0px' });
+
+            const parallaxObserver = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (!entry.isIntersecting) return;
+
+                    revealSection(entry.target);
+                    parallaxObserver.unobserve(entry.target);
+                });
+            }, { threshold: 0.01, rootMargin: '0px 0px -5% 0px' });
+
+            sections.forEach(function (section) {
+                section.classList.add('scroll-reveal');
+                (section.classList.contains('parallax-showcase') ? parallaxObserver : observer).observe(section);
+            });
+
+            const parallaxImages = document.querySelectorAll('.parallax-showcase__image');
+            let parallaxFrame;
+            const updateParallax = function () {
+                parallaxFrame = undefined;
+                parallaxImages.forEach(function (image) {
+                    const bounds = image.parentElement.getBoundingClientRect();
+                    const rawOffset = (window.innerHeight / 2 - (bounds.top + bounds.height / 2)) * 0.6;
+                    const limit = Math.min(380, bounds.height * 0.52);
+                    const offset = Math.max(-limit, Math.min(limit, rawOffset));
+                    image.style.setProperty('--parallax-offset', `${offset}px`);
+                });
+            };
+            const requestParallaxUpdate = function () {
+                if (!parallaxFrame) parallaxFrame = window.requestAnimationFrame(updateParallax);
+            };
+
+            requestParallaxUpdate();
+            window.addEventListener('scroll', requestParallaxUpdate, { passive: true });
+            window.addEventListener('resize', requestParallaxUpdate);
         })();
     </script>
 </body>

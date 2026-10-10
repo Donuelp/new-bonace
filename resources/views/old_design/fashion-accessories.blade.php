@@ -70,11 +70,6 @@
             transition: max-height 320ms ease, padding 320ms ease;
         }
 
-        .site-header.is-scrolled .nav-top {
-            max-height: 0;
-            padding-top: 0;
-            padding-bottom: 0;
-        }
 
         .nav__brand {
             display: inline-flex;
@@ -658,6 +653,167 @@
             margin: 4rem 0;
         }
 
+        /* Customer category navigation */
+        .sidebar {
+            top: 8rem;
+            width: 100%;
+            padding: 0.35rem 0 0.35rem 1.1rem;
+            background: transparent;
+            border: 0;
+            border-left: 1px solid var(--border);
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        .sidebar__toggle {
+            display: none;
+        }
+
+        .sidebar__groups {
+            display: grid;
+            gap: 1.75rem;
+        }
+
+        .sidebar__title {
+            margin: 0 0 0.6rem;
+            padding: 0;
+            border: 0;
+            font-size: 0.65rem;
+            letter-spacing: 0.16em;
+            color: var(--muted);
+        }
+
+        .sidebar__list li {
+            border: 0;
+        }
+
+        .sidebar__list a {
+            justify-content: flex-start;
+            gap: 0.55rem;
+            padding: 0.52rem 0;
+            font-size: 0.88rem;
+            font-weight: 500;
+        }
+
+        .sidebar__list a::before {
+            content: "";
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: width 180ms ease;
+        }
+
+        .sidebar__list a::after {
+            display: none;
+        }
+
+        .sidebar__list a:hover {
+            padding-left: 0;
+        }
+
+        .sidebar__list a:hover::before,
+        .sidebar__list a.is-active::before {
+            width: 14px;
+        }
+
+        .sidebar__list a.is-active {
+            color: var(--gold);
+        }
+
+        .sidebar__divider {
+            display: none;
+        }
+
+        @media (max-width: 720px) {
+            .page-layout {
+                width: min(100% - 2rem, 640px);
+                gap: 1.25rem;
+                padding-top: 1rem;
+            }
+
+            .sidebar {
+                position: static;
+                padding: 0;
+                overflow: hidden;
+                background: var(--panel);
+                border: 1px solid var(--border);
+                border-radius: var(--radius-sm);
+            }
+
+            .sidebar__toggle {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 1rem;
+                padding: 1rem 1.1rem;
+                cursor: pointer;
+                font-size: 0.82rem;
+                font-weight: 700;
+                letter-spacing: 0.12em;
+                text-transform: uppercase;
+                color: var(--text);
+                list-style: none;
+            }
+
+            .sidebar__toggle::-webkit-details-marker {
+                display: none;
+            }
+
+            .sidebar__toggle::after {
+                content: "+";
+                color: var(--gold);
+                font-size: 1.3rem;
+                line-height: 1;
+            }
+
+            .sidebar[open] .sidebar__toggle::after {
+                content: "-";
+            }
+
+            .sidebar__groups {
+                gap: 1rem;
+                padding: 0 1.1rem 1.1rem;
+            }
+
+            .sidebar__title {
+                margin-bottom: 0.55rem;
+                font-size: 0.66rem;
+            }
+
+            .sidebar__list {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 0.4rem;
+                padding: 0;
+            }
+
+            .sidebar__list li {
+                border: 0;
+            }
+
+            .sidebar__list a {
+                min-height: 42px;
+                padding: 0.55rem 0.65rem;
+                border: 1px solid var(--border);
+                border-radius: 0.3rem;
+                background: transparent;
+                font-size: 0.76rem;
+                line-height: 1.25;
+            }
+
+            .sidebar__list a::before,
+            .sidebar__list a::after {
+                display: none;
+            }
+
+            .sidebar__list a:hover,
+            .sidebar__list a.is-active {
+                padding-left: 0.65rem;
+                border-color: var(--gold);
+                background: var(--gold-soft);
+            }
+        }
+
         .page-content {
             min-height: 400px;
             padding: 1rem 0 2rem;
@@ -910,26 +1066,34 @@
         </nav>
     </header>
 
+    @include('old_design.partials.customer-mobile-nav')
+
     <main class="page-layout">
-        <aside class="sidebar">
-            <p class="sidebar__title">Fashion Accessories</p>
-            <ul class="sidebar__list">
-                <li><a href="{{ route('components') }}">Components</a></li>
-                <li><a href="{{ route('necklaces') }}">Necklaces</a></li>
-                <li><a href="{{ route('clutches') }}">Clutches</a></li>
-                <li><a href="{{ route('bangles') }}">Bangles</a></li>
-                <li><a href="{{ route('earrings') }}">Earrings</a></li>
-                <li><a href="{{ route('shoes') }}">Shoes</a></li>
-                <li><a href="{{ route('beaded-bags') }}">Beaded Bags</a></li>
-            </ul>
-            <div class="sidebar__divider"></div>
-            <p class="sidebar__title">Product Categories</p>
-            <ul class="sidebar__list">
-                <li><a href="#categories">Home Décor</a></li>
-                <li><a href="#categories">Accent Furniture</a></li>
-                <li><a href="#categories">Lighting</a></li>
-            </ul>
-        </aside>
+        <details class="sidebar" open>
+            <summary class="sidebar__toggle">Browse Categories</summary>
+            <div class="sidebar__groups">
+                <div>
+                    <p class="sidebar__title">Fashion Accessories</p>
+                    <ul class="sidebar__list">
+                        <li><a href="{{ route('components') }}">Components</a></li>
+                        <li><a href="{{ route('necklaces') }}">Necklaces</a></li>
+                        <li><a href="{{ route('clutches') }}">Clutches</a></li>
+                        <li><a href="{{ route('bangles') }}">Bangles</a></li>
+                        <li><a href="{{ route('earrings') }}">Earrings</a></li>
+                        <li><a href="{{ route('shoes') }}">Shoes</a></li>
+                        <li><a href="{{ route('beaded-bags') }}">Beaded Bags</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <p class="sidebar__title">Home Collections</p>
+                    <ul class="sidebar__list">
+                        <li><a href="#categories">Home Décor</a></li>
+                        <li><a href="#categories">Accent Furniture</a></li>
+                        <li><a href="#categories">Lighting</a></li>
+                    </ul>
+                </div>
+            </div>
+        </details>
 
         <div class="page-content">
             <div class="product-grid">
@@ -978,6 +1142,8 @@
             </div>
         </div>
     </main>
+
+    @include('old_design.partials.customer-footer')
 
     <script>
         (function () {
